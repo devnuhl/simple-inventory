@@ -12,4 +12,11 @@ class Container extends Model
      * @var string
      */
     protected $table = 'containers';
+
+    /**
+     * Get the items for the container.
+     */
+    public function items() {
+        return $this->hasMany('App\Item');
+    }
 }

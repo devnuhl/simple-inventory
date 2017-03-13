@@ -12,4 +12,11 @@ class Meta extends Model
      * @var string
      */
     protected $table = 'meta';
+
+    /**
+     * Get the item of the meta data.
+     */
+    public function item() {
+        return $this->belongsTo('App\Item');
+    }
 }

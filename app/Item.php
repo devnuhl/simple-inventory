@@ -12,4 +12,18 @@ class Item extends Model
      * @var string
      */
     protected $table = 'items';
+
+    /**
+     * Get the meta fields for the item.
+     */
+    public function metas() {
+        return $this->hasMany('App\Meta');
+    }
+
+    /**
+     * Get the container of the item.
+     */
+    public function container() {
+        return $this->belongsTo('App\Container');
+    }
 }
