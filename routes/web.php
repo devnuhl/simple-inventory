@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'ContainerController@list');
+Route::get('/', 'ContainerController@index');
 
-Route::get('/container/{id}', 'ContainerController@show');
+Route::get('/container/{container}', 'ContainerController@show');

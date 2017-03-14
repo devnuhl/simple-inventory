@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Container;
+use App\Item;
 use Illuminate\Http\Request;
 
-class ContainerController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ContainerController extends Controller
      */
     public function index()
     {
-        return view('containers', ['containers' => Container::all()]);
+        //
     }
 
     /**
@@ -41,21 +41,21 @@ class ContainerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Container $container)
+    public function show(Item $item)
     {
-        return view('container', ['container' => $container]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Container $container)
+    public function edit(Item $item)
     {
         //
     }
@@ -64,10 +64,10 @@ class ContainerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Container  $container
+     * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Container $container)
+    public function update(Request $request, Item $item)
     {
         //
     }
@@ -75,10 +75,10 @@ class ContainerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Container $container)
+    public function destroy(Item $item)
     {
         //
     }
