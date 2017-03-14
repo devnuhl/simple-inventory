@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ContainerController@list');
+
+Route::get('/container/{id}', 'ContainerController@show');
