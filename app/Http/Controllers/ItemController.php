@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Container;
 use Illuminate\Http\Request;
+use Collective\Html;
+use Illuminate\Routing\Route;
 
 class ItemController extends Controller
 {
@@ -20,11 +23,18 @@ class ItemController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \App\Container|null $container
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($container = null)
     {
         //
+        $options = [];
+        $item_container = $container;
+        foreach (Container::all() as $container) {
+            $options[$container->id] = $container->label;
+        }
+        return view('form.item', ['container' => $item_container, 'options' => $options]);
     }
 
     /**
@@ -36,6 +46,12 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         //
+        $item = new Item;
+        $item->label = $request->get('label');
+        $item->description = $request->get('description');
+        $item->container_id = $request->get('container');
+        $item->save();
+        return redirect("/container/{$item->container_id}");
     }
 
     /**
@@ -52,10 +68,11 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Item  $item
+     * @param  \App\Item $item
+     * @param  \App\Container|null $container
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(Item $item, Container $container = null)
     {
         //
     }
@@ -81,5 +98,8 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         //
+        $container = $item->container_id;
+        $item->delete();
+        return redirect("/container/{$container}");
     }
 }
