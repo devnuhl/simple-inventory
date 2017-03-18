@@ -29,8 +29,8 @@ class ItemController extends Controller
     public function create($container = null)
     {
         //
-        $options = [];
         $item_container = $container;
+        $options = [];
         foreach (Container::all() as $container) {
             $options[$container->id] = $container->label;
         }
@@ -46,10 +46,14 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         //
-        $item = new Item;
+        if ('' !== $request->get('id')) {
+            $item = Item::find($request->get('id'));
+        } else {
+            $item = new Item;
+        }
         $item->label = $request->get('label');
         $item->description = $request->get('description');
-        $item->container_id = $request->get('container');
+        $item->container_id = $request->get('container_id');
         $item->save();
         return redirect("/container/{$item->container_id}");
     }
@@ -74,7 +78,11 @@ class ItemController extends Controller
      */
     public function edit(Item $item, Container $container = null)
     {
-        //
+        $options = [];
+        foreach (Container::all() as $container) {
+            $options[$container->id] = $container->label;
+        }
+        return view('form.item', ['item' => $item, 'options' => $options]);
     }
 
     /**

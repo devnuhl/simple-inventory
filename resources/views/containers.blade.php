@@ -23,9 +23,13 @@
                 </ul>
             </div>
         </div>
+        @if ($loop->last)
+        <div class="left padded clear"><a href="/container/create">Add Container</a></div>
+        @endif
     @empty
-        <div>No containers found.</div>
+        <div>No containers found. <a href="/container/create">Add Container</a></div>
     @endforelse
+
     {{--@each('container', $containers, 'container')--}}
 </div>
 @endsection

@@ -25,6 +25,7 @@ class ContainerController extends Controller
     public function create()
     {
         //
+        return view('form.container');
     }
 
     /**
@@ -36,6 +37,10 @@ class ContainerController extends Controller
     public function store(Request $request)
     {
         //
+        $container = new Container;
+        $container->label = $request->get('label');
+        $container->save();
+        return redirect('/');
     }
 
     /**
