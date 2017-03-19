@@ -45,7 +45,6 @@ class MetaController extends Controller
         }
 
         $meta = new Meta;
-
         $this->updateMeta($request, $meta);
         $meta->save();
 

@@ -11,8 +11,8 @@
                 @if ($loop->first)
                 <dl>
                 @endif
-                    <dt>{{ $meta->label }} (<a href="/meta/{!! $meta->id !!}/edit">Edit</a> | <a href="/meta/{!! $meta->id !!}/delete">Delete</a>)</dt>
-                    <dd>{{ $meta->value }}</dd>
+                    <dt>{{ $meta->label }}</dt>
+                    <dd>{{ $meta->value }} | <a class="btn-default button-xs" href="/meta/{!! $meta->id !!}/edit">Edit</a> <a class="btn-default button-xs" href="/meta/{!! $meta->id !!}/delete">Delete</a></dd>
                 @if ($loop->last)
                 </dl>
                 @endif
