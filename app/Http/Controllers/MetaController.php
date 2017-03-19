@@ -36,16 +36,14 @@ class MetaController extends Controller
     public function store(Request $request)
     {
         //
-        if ('' !== $request->get('meta_id')) {
-            $meta = Meta::find($request->get('meta_id'));
-        } else {
-            $meta = new Meta;
+        $meta = new Meta;
+        if (isset($request->meta_id)) {
+            $meta = Meta::find($request->meta_id);
         }
-            $meta = new Meta;
 
-        $meta->label = $request->get('meta_label');
-        $meta->value = $request->get('meta_description');
-        $meta->item_id = ($request->get('item_id') ?: $request->get('id'));
+        $meta->label = $request->meta_label;
+        $meta->value = $request->meta_value;
+        $meta->item_id = ($request->item_id ?: $request->id);
         $meta->save();
 
         return redirect("/container/{$meta->item->container_id}");

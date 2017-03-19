@@ -46,11 +46,11 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         //
-        if ('' !== $request->get('id')) {
+        $item = new Item;
+        if ($request->get('id')) {
             $item = Item::find($request->get('id'));
-        } else {
-            $item = new Item;
         }
+
         $item->label = $request->get('label');
         $item->description = $request->get('description');
         $item->container_id = $request->get('container_id');
@@ -58,6 +58,7 @@ class ItemController extends Controller
 
         if ('' !== $request->get('meta_label')) {
             $con = new MetaController;
+            $request->item_id = $item->id;
             $con->store($request);
         }
 
