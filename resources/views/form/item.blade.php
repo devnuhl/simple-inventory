@@ -7,6 +7,7 @@
         @php
         Form::setModel($item);
         $meta = $item->metas->first();
+        // todo: make it show all the meta info in form.
         @endphp
     @endif
         <p>
