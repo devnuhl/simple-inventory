@@ -86,5 +86,7 @@ class ContainerController extends Controller
     public function destroy(Container $container)
     {
         //
+        $container->delete();
+        return redirect('/');
     }
 }
