@@ -1,6 +1,14 @@
 @extends('main')
 
 @section('content')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
+        });
+    </script>
 <div class="title m-b-md">
     Container {{ $container->id }}
 </div>
@@ -14,12 +22,14 @@
             <ul>
         @forelse ($container->items as $item)
             @unset($meta)
-            @if ($item->metas->first())
-                @php $meta = $item->metas->first() @endphp
+            @if ($item->metas)
+                @php $tooltip = "" @endphp
+                @foreach($item->metas as $meta)
+                @php $tooltip .= "<br>{$meta->label}: {$meta->value}"; @endphp
+                @endforeach
             @endif
                <li>
-                   @if (isset($meta)) {{ $meta->label }} {{ $meta->value }}: @endif
-                   <a href="/item/{!! $item->id !!}/show">{{ $item->label }} - {{ $item->description }}</a>
+                   <a href="/item/{!! $item->id !!}/show" rel="tooltip" data-toggle="tooltip" data-html="true" title="{{ $tooltip }}">{{ $item->label }} - {{ $item->description }}</a>
                        (<a href="/item/{{ $item->id }}/edit">Edit</a> | <a href="/item/{{ $item->id }}/delete">Delete</a>)
                </li>
             @if (
