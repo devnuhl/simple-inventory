@@ -18,8 +18,8 @@
         <p>
             {!! Form::hidden('meta_id', isset($meta) ? $meta->id : '') !!}
             {!! Form::hidden('item_id', isset($item) ? $item->id : '') !!}
-            {!! Form::text('meta_label', $meta->label ?: null, ['placeholder' => 'Meta Label']) !!}
-            {!! Form::text('meta_value', $meta->value ?: null, ['placeholder' => 'Meta Description']) !!}
+            {!! Form::text('meta_label', isset($meta) ? $meta->label : null, ['placeholder' => 'Meta Label']) !!}
+            {!! Form::text('meta_value', isset($meta) ? $meta->value : null, ['placeholder' => 'Meta Description']) !!}
         </p>
         <p>
     {!! Form::submit((isset($item) ? 'Update' : 'Add') . ' Item') !!}

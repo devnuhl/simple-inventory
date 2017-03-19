@@ -41,12 +41,13 @@ class MetaController extends Controller
             $meta = Meta::find($request->meta_id);
         }
 
-        $meta->label = $request->meta_label;
-        $meta->value = $request->meta_value;
+        $meta->label = $request->meta_label ?: '';
+        $meta->value = $request->meta_value ?: '';
         $meta->item_id = ($request->item_id ?: $request->id);
+        $container_id = $meta->item->container_id;
         $meta->save();
 
-        return redirect("/container/{$meta->item->container_id}");
+        return redirect("/container/{$container_id}");
     }
 
     /**
@@ -91,6 +92,8 @@ class MetaController extends Controller
      */
     public function destroy(Meta $meta)
     {
-        //
+        $container_id = $meta->item->container_id;
+        $meta->delete();
+        return redirect("/container/{$container_id}");
     }
 }

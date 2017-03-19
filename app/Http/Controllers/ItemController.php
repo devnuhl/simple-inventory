@@ -56,10 +56,12 @@ class ItemController extends Controller
         $item->container_id = $request->get('container_id');
         $item->save();
 
-        if ('' !== $request->get('meta_label')) {
-            $con = new MetaController;
+        if (isset($request->meta_label)) {
             $request->item_id = $item->id;
+            $con = new MetaController;
             $con->store($request);
+        } else if (isset($request->meta_id)) {
+            \App\Meta::find($request->meta_id)->delete();
         }
 
         return redirect("/container/{$item->container_id}");
@@ -113,8 +115,8 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         //
-        $container = $item->container_id;
+        $container_id = $item->container_id;
         $item->delete();
-        return redirect("/container/{$container}");
+        return redirect("/container/{$container_id}");
     }
 }

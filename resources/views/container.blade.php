@@ -13,7 +13,15 @@
         <div>
             <ul>
         @forelse ($container->items as $item)
-               <li>{{ $item->label }} - {{ $item->description }} (<a href="/item/{{ $item->id }}/edit">Edit</a> | <a href="/item/{{ $item->id }}/delete">Delete</a>)</li>
+            @unset($meta)
+            @if ($item->metas->first())
+                @php $meta = $item->metas->first() @endphp
+            @endif
+               <li>
+                   @if (isset($meta)) {{ $meta->label }} {{ $meta->value }}: @endif
+                       {{ $item->label }} - {{ $item->description }}
+                       (<a href="/item/{{ $item->id }}/edit">Edit</a> | <a href="/item/{{ $item->id }}/delete">Delete</a>)
+               </li>
             @if (
                 strpos(Route::current()->uri, 'container') === false
                 and $loop->count > 6
