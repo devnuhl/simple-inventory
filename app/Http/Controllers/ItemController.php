@@ -116,6 +116,7 @@ class ItemController extends Controller
     {
         //
         $container_id = $item->container_id;
+        $item->metas->each(function ($meta) { $meta->delete(); });
         $item->delete();
         return redirect("/container/{$container_id}");
     }
