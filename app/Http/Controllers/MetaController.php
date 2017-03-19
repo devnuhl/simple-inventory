@@ -39,18 +39,17 @@ class MetaController extends Controller
     public function store(Request $request)
     {
         //
-        $meta = new Meta;
         if (isset($request->meta_id)) {
             $meta = Meta::find($request->meta_id);
+            return $this->update($request, $meta);
         }
 
-        $meta->label = $request->meta_label ?: '';
-        $meta->value = $request->meta_value ?: '';
-        $meta->item_id = ($request->item_id ?: $request->id);
-        $container_id = $meta->item->container_id;
+        $meta = new Meta;
+
+        $this->updateMeta($request, $meta);
         $meta->save();
 
-        return redirect("/container/{$container_id}");
+        return redirect("/item/{$meta->item_id}/show");
     }
 
     /**
@@ -85,6 +84,10 @@ class MetaController extends Controller
     public function update(Request $request, Meta $meta)
     {
         //
+        $this->updateMeta($request, $meta);
+        $meta->save();
+
+        return redirect("/item/{$meta->item_id}/show");
     }
 
     /**
@@ -98,5 +101,16 @@ class MetaController extends Controller
         $container_id = $meta->item->container_id;
         $meta->delete();
         return redirect("/container/{$container_id}");
+    }
+
+    /**
+     * @param Request $request
+     * @param Meta $meta
+     */
+    private function updateMeta(Request $request, Meta $meta)
+    {
+        $meta->label   = $request->meta_label ?: '';
+        $meta->value   = $request->meta_value ?: '';
+        $meta->item_id = ($request->item_id ?: $request->id);
     }
 }

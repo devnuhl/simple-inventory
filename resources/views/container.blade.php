@@ -30,7 +30,7 @@
             @endif
                <li>
                    <a href="/item/{!! $item->id !!}/show" rel="tooltip" data-toggle="tooltip" data-html="true" title="{{ $tooltip }}">{{ $item->label }} - {{ $item->description }}</a>
-                       (<a href="/item/{{ $item->id }}/edit">Edit</a> | <a href="/item/{{ $item->id }}/delete">Delete</a>)
+                       | <a class="btn-default btn-xs" href="/item/{{ $item->id }}/edit">Edit</a> <a class="btn-default btn-xs" href="/item/{{ $item->id }}/delete">Delete</a>
                </li>
             @if (
                 strpos(Route::current()->uri, 'container') === false
@@ -44,9 +44,12 @@
         @empty
                <li>Nothing here.</li>
         @endforelse
-                <li><a href="{{ $container->id }}/item/create/">Add Item</a></li>
             </ul>
+            <div class="padded">
+                <a class="btn-default btn-lg" href="{{ $container->id }}/item/create/">Add Item</a>
+            </div>
         </div>
+
     </div>
 </div>
 @endsection
