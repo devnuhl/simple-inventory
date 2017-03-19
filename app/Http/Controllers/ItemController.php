@@ -55,6 +55,12 @@ class ItemController extends Controller
         $item->description = $request->get('description');
         $item->container_id = $request->get('container_id');
         $item->save();
+
+        if ('' !== $request->get('meta_label')) {
+            $con = new MetaController;
+            $con->store($request);
+        }
+
         return redirect("/container/{$item->container_id}");
     }
 
