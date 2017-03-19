@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Meta;
+use App\Item;
 use Illuminate\Http\Request;
 
 class MetaController extends Controller
@@ -20,11 +21,13 @@ class MetaController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Item $item
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Item $item)
     {
         //
+        return view('form.meta', ['item' => $item]);
     }
 
     /**
@@ -69,7 +72,7 @@ class MetaController extends Controller
      */
     public function edit(Meta $meta)
     {
-        //
+        return view('form.meta', ['meta' => $meta]);
     }
 
     /**

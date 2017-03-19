@@ -46,23 +46,16 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         //
-        $item = new Item;
-        if ($request->get('id')) {
-            $item = Item::find($request->get('id'));
+        if ($request->id) {
+            $item = Item::find($request->id);
+            return $this->update($request, $item);
         }
 
-        $item->label = $request->get('label');
-        $item->description = $request->get('description');
-        $item->container_id = $request->get('container_id');
+        $item = new Item;
+        $this->updateItem($request, $item);
         $item->save();
 
-        if (isset($request->meta_label)) {
-            $request->item_id = $item->id;
-            $con = new MetaController;
-            $con->store($request);
-        } else if (isset($request->meta_id)) {
-            \App\Meta::find($request->meta_id)->delete();
-        }
+        $this->saveMeta($request, $item);
 
         return redirect("/container/{$item->container_id}");
     }
@@ -76,6 +69,7 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         //
+        return view('item', ['item' => $item]);
     }
 
     /**
@@ -104,6 +98,12 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         //
+        $this->updateItem($request, $item);
+        $item->save();
+
+        $this->saveMeta($request, $item);
+
+        return redirect("/container/{$item->container_id}");
     }
 
     /**
@@ -119,5 +119,34 @@ class ItemController extends Controller
         $item->metas->each(function ($meta) { $meta->delete(); });
         $item->delete();
         return redirect("/container/{$container_id}");
+    }
+
+    /**
+     * Update local Item, since this is done in both store() and update().
+     *
+     * @param Request $request
+     * @param Item $item
+     */
+    private function updateItem(Request $request, Item $item) {
+        $item->label = $request->label;
+        $item->description = $request->description;
+        $item->container_id = $request->container_id;
+    }
+
+    /**
+     * Chain save/update methods here, since they're used in two places.
+     *
+     * @param Request $request
+     * @param Item $item
+     */
+    private function saveMeta(Request $request, Item $item)
+    {
+        if (isset($request->meta_label)) {
+            $request->item_id = $item->id;
+            $con = new MetaController;
+            $con->store($request);
+        } else if (isset($request->meta_id)) {
+            \App\Meta::find($request->meta_id)->delete();
+        }
     }
 }

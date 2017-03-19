@@ -19,7 +19,7 @@
             @endif
                <li>
                    @if (isset($meta)) {{ $meta->label }} {{ $meta->value }}: @endif
-                       {{ $item->label }} - {{ $item->description }}
+                   <a href="/item/{!! $item->id !!}/show">{{ $item->label }} - {{ $item->description }}</a>
                        (<a href="/item/{{ $item->id }}/edit">Edit</a> | <a href="/item/{{ $item->id }}/delete">Delete</a>)
                </li>
             @if (

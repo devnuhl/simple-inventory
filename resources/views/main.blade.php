@@ -64,6 +64,10 @@
             font-size: 84px;
         }
 
+        .sm-title {
+            font-size: 48px;
+        }
+
         .links > a {
             color: #636b6f;
             padding: 0 25px;
