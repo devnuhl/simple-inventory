@@ -6,7 +6,7 @@
     </div>
     <div class="content">
         <div class="padded">
-            <p>Meta Information</p>
+            <p>Meta Information (<a href="/container/{!! $item->container_id !!}">Back to Container</a>)</p>
             @forelse($item->metas as $meta)
                 @if ($loop->first)
                 <dl>
