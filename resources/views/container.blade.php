@@ -12,9 +12,6 @@
 <div class="title m-b-md">
     Container {{ $container->id }}
 </div>
-<script>
-    const items = {!! json_encode($container->items) !!} ;
-</script>
 <div class="content">
     <div class="padded">
         <div>{{ $container->label }} (<a href="/">Back to List</a>)</div>

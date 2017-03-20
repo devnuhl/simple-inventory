@@ -57,7 +57,7 @@ class ItemController extends Controller
 
         $this->saveMeta($request, $item);
 
-        return redirect("/container/{$item->container_id}");
+        return redirect("/item/{$item->id}/show");
     }
 
     /**
