@@ -10,11 +10,11 @@
         });
     </script>
 <div class="title m-b-md">
-    Container {{ $container->id }}
+    {{ $container->label }}
 </div>
 <div class="content">
     <div class="padded">
-        <div>{{ $container->label }} (<a href="/">Back to List</a>)</div>
+        <div><a href="/">Back to List</a></div>
         <div>
             <ul>
         @forelse ($container->items as $item)
