@@ -22,7 +22,7 @@ Route::post('/container/{container}/item/create', 'ItemController@store');
 
 Route::get('/container/{container}/item/{item}/edit', 'ItemController@edit');
 Route::get('/item/{item}/edit', 'ItemController@edit');
-Route::post('/item/{item}/edit', 'ItemController@store');
+Route::post('/item/{item}/edit', 'ItemController@update');
 
 Route::get('/item/{item}/show', 'ItemController@show');
 

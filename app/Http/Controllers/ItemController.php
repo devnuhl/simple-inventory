@@ -17,7 +17,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        // This could be useful if i want to have everything on
+        // a page, with filters.
     }
 
     /**
@@ -45,11 +46,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        if ($request->id) {
-            $item = Item::find($request->id);
-            return $this->update($request, $item);
-        }
+        // Need to write and wrap in validators
 
         $item = new Item;
         $this->updateItem($request, $item);
@@ -97,7 +94,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        // Need to write and wrap in validators
         $this->updateItem($request, $item);
         $item->save();
 
@@ -141,6 +138,7 @@ class ItemController extends Controller
      */
     private function saveMeta(Request $request, Item $item)
     {
+        // Need to write and wrap in validators (should be validated before calling this)
         if (isset($request->meta_label)) {
             $request->item_id = $item->id;
             $con = new MetaController;

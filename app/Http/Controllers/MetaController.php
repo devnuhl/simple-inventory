@@ -15,7 +15,7 @@ class MetaController extends Controller
      */
     public function index()
     {
-        //
+        // Not sure there is any merit to this method.
     }
 
     /**
@@ -38,12 +38,7 @@ class MetaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        if (isset($request->meta_id)) {
-            $meta = Meta::find($request->meta_id);
-            return $this->update($request, $meta);
-        }
-
+        // Need to write and wrap in validators
         $meta = new Meta;
         $this->updateMeta($request, $meta);
         $meta->save();
@@ -59,7 +54,7 @@ class MetaController extends Controller
      */
     public function show(Meta $meta)
     {
-        //
+        // Useless without a context.
     }
 
     /**
