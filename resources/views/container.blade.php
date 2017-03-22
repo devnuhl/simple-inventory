@@ -20,9 +20,8 @@
         @forelse ($container->items as $item)
             @unset($meta)
             @if ($item->metas)
-                @php ($tooltip = "")
                 @foreach($item->metas as $meta)
-                    @if ($loop->first) @php($tooltip .= "<ul>") @endif
+                    @if ($loop->first) @php($tooltip = "<ul>") @endif
                     @php ($tooltip .= "<li>{$meta->label}: {$meta->value}</li>")
                     @if ($loop->last) @php($tooltip .= "<ul>") @endif
                 @endforeach
