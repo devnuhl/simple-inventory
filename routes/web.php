@@ -15,17 +15,14 @@ Route::get('/', 'ContainerController@index');
 
 Route::get('/container/create', 'ContainerController@create');
 Route::post('/container/create', 'ContainerController@store');
-
 Route::get('/container/{container}', 'ContainerController@show');
+
 Route::get('/container/{container}/item/create', 'ItemController@create');
 Route::post('/container/{container}/item/create', 'ItemController@store');
-
 Route::get('/container/{container}/item/{item}/edit', 'ItemController@edit');
 Route::get('/item/{item}/edit', 'ItemController@edit');
 Route::post('/item/{item}/edit', 'ItemController@update');
-
 Route::get('/item/{item}/show', 'ItemController@show');
-
 Route::get('/item/{item}/delete', 'ItemController@destroy');
 
 Route::get('/item/{item}/meta/create', 'MetaController@create');
