@@ -13,6 +13,8 @@ class Meta extends Model
      */
     protected $table = 'meta';
 
+    protected $fillable = ['id', 'label', 'value', 'item_id'];
+
     /**
      * Get the item of the meta data.
      */

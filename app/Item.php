@@ -13,6 +13,8 @@ class Item extends Model
      */
     protected $table = 'items';
 
+    protected $fillable = ['id', 'label', 'description', 'container_id'];
+
     /**
      * Get the meta fields for the item.
      */

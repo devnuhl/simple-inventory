@@ -13,6 +13,8 @@ class Container extends Model
      */
     protected $table = 'containers';
 
+    protected $fillable = ['id', 'label'];
+
     /**
      * Get the items for the container.
      */
