@@ -40,8 +40,7 @@ class MetaController extends Controller
     {
         // Need to write and wrap in validators
         $meta = new Meta;
-        $this->updateMeta($request, $meta);
-        $meta->save();
+        $meta->fill($request->all())->save();
 
         return redirect("/item/{$meta->item_id}/show");
     }
@@ -78,8 +77,7 @@ class MetaController extends Controller
     public function update(Request $request, Meta $meta)
     {
         //
-        $this->updateMeta($request, $meta);
-        $meta->save();
+        $meta->update($request->all());
 
         return redirect("/item/{$meta->item_id}/show");
     }
@@ -97,14 +95,4 @@ class MetaController extends Controller
         return redirect("/container/{$container_id}");
     }
 
-    /**
-     * @param Request $request
-     * @param Meta $meta
-     */
-    private function updateMeta(Request $request, Meta $meta)
-    {
-        $meta->label   = $request->meta_label ?: '';
-        $meta->value   = $request->meta_value ?: '';
-        $meta->item_id = ($request->item_id ?: $request->id);
-    }
 }

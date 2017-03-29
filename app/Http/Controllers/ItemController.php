@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Meta;
 use App\Container;
 use Illuminate\Http\Request;
 use Collective\Html;
@@ -49,8 +50,7 @@ class ItemController extends Controller
         // Need to write and wrap in validators
 
         $item = new Item;
-        $this->updateItem($request, $item);
-        $item->save();
+        $item->fill($request->all())->save();
 
         $this->saveMeta($request, $item);
 
@@ -95,8 +95,7 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         // Need to write and wrap in validators
-        $this->updateItem($request, $item);
-        $item->save();
+        $item->update($request->all());
 
         $this->saveMeta($request, $item);
 
@@ -119,18 +118,6 @@ class ItemController extends Controller
     }
 
     /**
-     * Update local Item, since this is done in both store() and update().
-     *
-     * @param Request $request
-     * @param Item $item
-     */
-    private function updateItem(Request $request, Item $item) {
-        $item->label = $request->label;
-        $item->description = $request->description;
-        $item->container_id = $request->container_id;
-    }
-
-    /**
      * Chain save/update methods here, since they're used in two places.
      *
      * @param Request $request
@@ -144,7 +131,7 @@ class ItemController extends Controller
             $con = new MetaController;
             $con->store($request);
         } else if (isset($request->meta_id)) {
-            \App\Meta::find($request->meta_id)->delete();
+            Meta::find($request->meta_id)->delete();
         }
     }
 }
