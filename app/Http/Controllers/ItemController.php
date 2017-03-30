@@ -50,9 +50,18 @@ class ItemController extends Controller
         // Need to write and wrap in validators
 
         $item = new Item;
-        $item->fill($request->all())->save();
+        $item
+            ->fill($request->all())
+            ->save();
 
-        $this->saveMeta($request, $item);
+        if ($request->has('meta.label')) {
+            $meta = new Meta;
+            $meta
+                ->fill($request->meta)
+                ->item()
+                ->associate($item)
+                ->save();
+        }
 
         return redirect("/item/{$item->id}/show");
     }
@@ -73,10 +82,9 @@ class ItemController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Item $item
-     * @param  \App\Container|null $container
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item, Container $container = null)
+    public function edit(Item $item)
     {
         $options = [];
         foreach (Container::all() as $container) {
@@ -96,8 +104,19 @@ class ItemController extends Controller
     {
         // Need to write and wrap in validators
         $item->update($request->all());
+        if ($request->has('meta.id')) {
+            $meta = Meta::find($request->meta['id']);
+        } else {
+            $meta = new Meta;
+        }
 
-        $this->saveMeta($request, $item);
+        if ($request->has('meta.label')) {
+            $meta
+                ->fill($request->meta)
+                ->save();
+        } else {
+            $meta->delete();
+        }
 
         return redirect("/container/{$item->container_id}");
     }
@@ -117,21 +136,4 @@ class ItemController extends Controller
         return redirect("/container/{$container_id}");
     }
 
-    /**
-     * Chain save/update methods here, since they're used in two places.
-     *
-     * @param Request $request
-     * @param Item $item
-     */
-    private function saveMeta(Request $request, Item $item)
-    {
-        // Need to write and wrap in validators (should be validated before calling this)
-        if (isset($request->meta_label)) {
-            $request->item_id = $item->id;
-            $con = new MetaController;
-            $con->store($request);
-        } else if (isset($request->meta_id)) {
-            Meta::find($request->meta_id)->delete();
-        }
-    }
 }
