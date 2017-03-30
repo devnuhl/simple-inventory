@@ -90,9 +90,9 @@ class MetaController extends Controller
      */
     public function destroy(Meta $meta)
     {
-        $container_id = $meta->item->container_id;
+        $item_id = $meta->item_id;
         $meta->delete();
-        return redirect("/container/{$container_id}");
+        return redirect("/item/{$item_id}/show");
     }
 
 }
