@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Tightenco\Elm\ElmServiceProvider::class,
 
         /*
          * Application Service Providers...
